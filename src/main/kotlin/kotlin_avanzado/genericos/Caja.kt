@@ -1,3 +1,3 @@
 package kotlin_avanzado.genericos
 
-data class Caja(var sofa: Sofa, val dimension: Dimension)
+class Caja<T>(var mueble: T, val dimension: Dimension)
