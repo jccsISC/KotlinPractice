@@ -50,6 +50,16 @@ fun main() {
     val miStringList = mutableListOf(miString)
     printListAny(miAnyList)
 //    printListAny(miStringList)
+
+    /**
+     * Covarianza y contravarianza, esto para tener mejor control en las clases genericas ------------------------------
+     * */
+    val miCaja3 = Caja2("asd")
+    mostrarObjeto(miCaja3)
+}
+
+fun mostrarObjeto(caja: Caja2<Any>) {
+    println(caja.obtenerObjeto().toString())
 }
 
 fun printAny(miObjeto: Any) {
