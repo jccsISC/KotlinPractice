@@ -7,7 +7,9 @@ fun main(args: Array<String>) {
 //    blokingExample()
 //    suspendExample()
 //    suspendExample2()
-    dispatchers()
+//    dispatchers()
+    launch()
+    Thread.sleep(7000)
 }
 
 /**
@@ -79,4 +81,15 @@ fun dispatchers() {
    /* runBlocking(Dispatchers.Main) {
         println("Hilo en el que se ejecuta 6: ${Thread.currentThread().name}")
     }*/
+}
+
+/**
+ * Crear corrutina a través de launch
+ * */
+fun launch() {
+    println("Tarea1: " + Thread.currentThread().name)
+    GlobalScope.launch {
+        delayCoroutine("Tarea2: ")
+    }
+    println("Tarea3: " + Thread.currentThread().name)
 }
