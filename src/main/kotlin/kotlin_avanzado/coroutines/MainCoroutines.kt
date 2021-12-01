@@ -8,7 +8,8 @@ fun main(args: Array<String>) {
 //    suspendExample()
 //    suspendExample2()
 //    dispatchers()
-    launch()
+//    launch()
+    exampleJob()
     Thread.sleep(7000)
 }
 
@@ -92,4 +93,16 @@ fun launch() {
         delayCoroutine("Tarea2: ")
     }
     println("Tarea3: " + Thread.currentThread().name)
+}
+
+/**
+ * Ejemplo de un job este nos los devuelve el launch
+ * */
+fun exampleJob() {
+    println("Tarea1: ${Thread.currentThread().name}")
+    val job = GlobalScope.launch {
+        delayCoroutine("Tarea2: ")
+    }
+    println("Tarea2: ${Thread.currentThread().name}")
+    job.cancel()
 }
