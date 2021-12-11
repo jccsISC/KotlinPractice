@@ -2,6 +2,7 @@ package kotlin_avanzado.coroutines
 
 import kotlinx.coroutines.*
 import javax.swing.plaf.TableHeaderUI
+import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 //    blokingExample()
@@ -10,8 +11,12 @@ fun main(args: Array<String>) {
 //    dispatchers()
 //    launch()
 //    exampleJob()
-    asyncAwait()
-    Thread.sleep(7000)
+//    Thread.sleep(7000)
+//    asyncAwait()
+//    asyncAwaitDeferred()
+    /**nos devuelve el tiempo que tarda en ejecutarse el código que pongamos dentro*/
+    println(measureTimeMillis { asyncAwait() }.toString())
+    println(measureTimeMillis { asyncAwaitDeferred() }.toString())
 }
 
 /**
@@ -113,15 +118,32 @@ suspend fun calculateHard() = run {
     delay(3000)
     15
 }
-/**
- * Coroutine await
- * */
+/** Coroutine await*/
 fun asyncAwait() = runBlocking {
-    println(System.currentTimeMillis().toString())
+//    println(System.currentTimeMillis().toString())
     val numero1 = async { calculateHard() }.await()
-    println(System.currentTimeMillis().toString())
+//    println(System.currentTimeMillis().toString())
     val numero2 = async { calculateHard() }.await()
-    println(System.currentTimeMillis().toString())
+//    println(System.currentTimeMillis().toString())
+    val resultado = numero1 + numero2
+    println(resultado.toString())
+}
+
+/**AsuncAwait Deferred*/
+fun asyncAwaitDeferred() = runBlocking {
+//    println(System.currentTimeMillis().toString())
+    val numero1 = async { calculateHard() }
+//    println(System.currentTimeMillis().toString())
+    val numero2 = async { calculateHard() }
+//    println(System.currentTimeMillis().toString())
+    val resultado = numero1.await() + numero2.await()
+    println(resultado.toString())
+}
+
+/**WithContext*/
+fun withContextIO() = runBlocking {
+    val numero1 = withContext(Dispatchers.IO) { calculateHard() }
+    val numero2 = withContext(Dispatchers.IO) { calculateHard() }
     val resultado = numero1 + numero2
     println(resultado.toString())
 }
