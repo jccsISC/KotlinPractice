@@ -17,6 +17,7 @@ fun main(args: Array<String>) {
     /**nos devuelve el tiempo que tarda en ejecutarse el código que pongamos dentro*/
     println(measureTimeMillis { asyncAwait() }.toString())
     println(measureTimeMillis { asyncAwaitDeferred() }.toString())
+    println(measureTimeMillis { withContextIO() }.toString())
 }
 
 /**
