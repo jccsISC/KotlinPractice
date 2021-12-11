@@ -9,7 +9,8 @@ fun main(args: Array<String>) {
 //    suspendExample2()
 //    dispatchers()
 //    launch()
-    exampleJob()
+//    exampleJob()
+    asyncAwait()
     Thread.sleep(7000)
 }
 
@@ -105,4 +106,22 @@ fun exampleJob() {
     }
     println("Tarea2: ${Thread.currentThread().name}")
     job.cancel()
+}
+
+/**Simulando que es una funcion de larga duracion*/
+suspend fun calculateHard() = run {
+    delay(3000)
+    15
+}
+/**
+ * Coroutine await
+ * */
+fun asyncAwait() = runBlocking {
+    println(System.currentTimeMillis().toString())
+    val numero1 = async { calculateHard() }.await()
+    println(System.currentTimeMillis().toString())
+    val numero2 = async { calculateHard() }.await()
+    println(System.currentTimeMillis().toString())
+    val resultado = numero1 + numero2
+    println(resultado.toString())
 }
