@@ -15,9 +15,10 @@ fun main(args: Array<String>) {
 //    asyncAwait()
 //    asyncAwaitDeferred()
     /**nos devuelve el tiempo que tarda en ejecutarse el código que pongamos dentro*/
-    println(measureTimeMillis { asyncAwait() }.toString())
-    println(measureTimeMillis { asyncAwaitDeferred() }.toString())
-    println(measureTimeMillis { withContextIO() }.toString())
+//    println(measureTimeMillis { asyncAwait() }.toString())
+//    println(measureTimeMillis { asyncAwaitDeferred() }.toString())
+//    println(measureTimeMillis { withContextIO() }.toString())
+    cancelCoroutine()
 }
 
 /**
@@ -147,4 +148,19 @@ fun withContextIO() = runBlocking {
     val numero2 = withContext(Dispatchers.IO) { calculateHard() }
     val resultado = numero1 + numero2
     println(resultado.toString())
+}
+
+/**Cancelar coroutine*/
+fun cancelCoroutine() {
+    runBlocking {
+        val job = launch {
+            repeat(1000) { i ->
+                println("job: $i")
+                delay(500)
+            }
+        }
+        delay(2000)
+        job.cancel()
+        println("main: cansado de esperar")
+    }
 }
