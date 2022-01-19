@@ -1,11 +1,10 @@
 package kotlin_avanzado.coroutines
 
-import kotlinx.coroutines.delay
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.flow.flowOf
 
 fun main(args: Array<String>) {
 //    show()
@@ -23,7 +22,7 @@ fun main(args: Array<String>) {
 
         /**Recuperar los valores que se están transmitiendo*/
         firstFlow().collect { value-> println(value) }
-    }*/
+    }
 
     runBlocking {
         println("Llamando Flow...")
@@ -32,6 +31,17 @@ fun main(args: Array<String>) {
         flow.collect {value-> println(value)}
         println("Collect again...")
         flow.collect {value-> println(value)}
+    }
+
+    runBlocking {
+        withTimeoutOrNull(2500) {
+            firstFlow().collect {value-> println(value)}
+        }
+        println("Finalizado")
+    }*/
+
+    runBlocking {
+        secondFlow().collect {value-> println(value)}
     }
 }
 
@@ -62,3 +72,5 @@ fun firstFlow(): Flow<Int> = flow {
         emit(i)
     }
 }
+
+fun secondFlow(): Flow<Int> = flowOf(1,2,3) //flowOf nos permite devolver cualquier cosa
