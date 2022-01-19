@@ -1,12 +1,28 @@
 package kotlin_avanzado.coroutines
 
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main(args: Array<String>) {
 //    show()
-    runBlocking {
+   /* runBlocking {
         runAsynchronous().forEach {i->  println(i)}
+    }*/
+
+    runBlocking {
+        launch {
+            for (j in 1..3) {
+                println("No estoy bloqueado $j")
+                delay(1000)
+            }
+        }
+
+        /**Recuperar los valores que se están transmitiendo*/
+        firstFlow().collect { value-> println(value) }
     }
 }
 
@@ -28,4 +44,12 @@ fun secuencia(): Sequence<Int> = sequence {
 suspend fun runAsynchronous() = runBlocking {
     delay(1000)
     return@runBlocking listOf(1, 2, 3)
+}
+
+/**Primer flow*/
+fun firstFlow(): Flow<Int> = flow {
+    for (i in 1..3) {
+        delay(1000)
+        emit(i)
+    }
 }
