@@ -11,7 +11,7 @@ fun main(args: Array<String>) {
 //    show()
    /* runBlocking {
         runAsynchronous().forEach {i->  println(i)}
-    }*/
+    }
 
     runBlocking {
         launch {
@@ -23,6 +23,15 @@ fun main(args: Array<String>) {
 
         /**Recuperar los valores que se están transmitiendo*/
         firstFlow().collect { value-> println(value) }
+    }*/
+
+    runBlocking {
+        println("Llamando Flow...")
+        val flow = firstFlow()
+        println("Collect...")
+        flow.collect {value-> println(value)}
+        println("Collect again...")
+        flow.collect {value-> println(value)}
     }
 }
 
