@@ -113,7 +113,7 @@ fun main(args: Array<String>) {
         println("$time ms")
     }*/
 
-    runBlocking {
+    /*runBlocking {
         //Nos devuelve el tiempo en milisegundos de todoo lo que se lleva a cabo dentro
         val time = measureTimeMillis {
             firstFlow()
@@ -125,7 +125,40 @@ fun main(args: Array<String>) {
         }
 
         println("$time ms")
+    }*/
+
+   /* runBlocking {
+        //Nos devuelve el tiempo en milisegundos de todoo lo que se lleva a cabo dentro
+        val time = measureTimeMillis {
+            firstFlow()
+                .collectLatest {value ->
+                    println("Collecting $value")
+                    delay(300)
+                    println("Finalizado $value")
+                }
+        }
+
+        println("$time ms")
+    }*/
+
+   /* val num = (1..3).asFlow()
+    val strs = flowOf("Uno", "Dos", "Tres")
+    runBlocking {
+        num.zip(strs) {a, b->
+            "Zip: $a -> $b"
+        }.collect { println(it) }
+    }*/
+
+    runBlocking {
+        //Aqui se nos está creando un flujo de flujos, para poder procesarlo lo hacemos que sea un solo flujo
+        val ejemplo = (1..3).asFlow().map { requestFlow(it) }
     }
+}
+
+fun requestFlow(i: Int) = flow {
+    emit("$i: First")
+    delay(2000)
+    emit("$i: Second")
 }
 
 fun show() {
