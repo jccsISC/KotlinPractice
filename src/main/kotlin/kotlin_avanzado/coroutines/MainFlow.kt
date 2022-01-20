@@ -80,9 +80,22 @@ fun main(args: Array<String>) {
         println(numero)
     }*/
 
-    runBlocking {
+   /* runBlocking {
         val resultado = (1..5).asFlow().reduce{ a, b-> a + b }
         println(resultado)
+    }*/
+
+    runBlocking {
+        (1..5).asFlow()
+            .filter {i->
+                println("Filtrado $i")
+                i % 2 == 0
+            }
+            .map {i->
+                println("Map $i")
+                "String $i"
+            }
+            .collect {i-> println("Collect $i")  }
     }
 }
 
