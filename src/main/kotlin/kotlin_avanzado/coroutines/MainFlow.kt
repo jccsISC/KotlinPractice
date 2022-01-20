@@ -70,9 +70,14 @@ fun main(args: Array<String>) {
             .collect {response-> println(response)}
     }*/
 
-    runBlocking {
+   /* runBlocking {
         val lista: List<Int> = (1..3).asFlow().toList()
         println(lista)
+    }*/
+
+    runBlocking {
+       val numero =  (1..3).asFlow().first()
+        println(numero)
     }
 }
 
