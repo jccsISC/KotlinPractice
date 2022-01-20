@@ -55,13 +55,19 @@ fun main(args: Array<String>) {
             .collect {response-> println(response)}
     }*/
 
-    runBlocking {
+    /*runBlocking {
         (1..3).asFlow()
             .transform {request->
                 emit("Making request $request")
                 emit(performRequest(request))
             }
             .collect {response-> println(response) }
+    }*/
+
+    runBlocking {
+        (1..3).asFlow()
+            .take(2)
+            .collect {response-> println(response)}
     }
 }
 
