@@ -2,6 +2,7 @@ package kotlin_avanzado.coroutines
 
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
+import kotlin.system.measureTimeMillis
 
 fun main(args: Array<String>) {
 //    show()
@@ -85,7 +86,7 @@ fun main(args: Array<String>) {
         println(resultado)
     }*/
 
-    runBlocking {
+   /* runBlocking {
         (1..5).asFlow()
             .filter {i->
                 println("Filtrado $i")
@@ -96,6 +97,20 @@ fun main(args: Array<String>) {
                 "String $i"
             }
             .collect {i-> println("Collect $i")  }
+    }*/
+
+    runBlocking {
+        //Nos devuelve el tiempo en milisegundos de todoo lo que se lleva a cabo dentro
+        val time = measureTimeMillis {
+            firstFlow()
+                .buffer()
+                .collect {value ->
+                delay(300)
+                println(value)
+            }
+        }
+
+        println("$time ms")
     }
 }
 
@@ -122,7 +137,7 @@ suspend fun runAsynchronous() = runBlocking {
 /**Primer flow*/
 fun firstFlow(): Flow<Int> = flow {
     for (i in 1..3) {
-        delay(1000)
+        delay(100)
         emit(i)
     }
 }
