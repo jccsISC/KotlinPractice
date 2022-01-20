@@ -75,9 +75,14 @@ fun main(args: Array<String>) {
         println(lista)
     }*/
 
-    runBlocking {
+   /* runBlocking {
        val numero =  (1..3).asFlow().first()
         println(numero)
+    }*/
+
+    runBlocking {
+        val resultado = (1..5).asFlow().reduce{ a, b-> a + b }
+        println(resultado)
     }
 }
 
