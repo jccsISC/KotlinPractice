@@ -35,11 +35,22 @@ fun main(args: Array<String>) {
             firstFlow().collect {value-> println(value)}
         }
         println("Finalizado")
-    }*/
+    }
 
     runBlocking {
 //        secondFlow().collect {value-> println(value)}
         thirdFlow().collect {value-> println(value)}
+    }*/
+
+   /* runBlocking {
+        (1..3).asFlow()
+            .map {request-> performRequest(request)}
+            .collect {response-> println(response) }
+    }*/
+
+    runBlocking {
+        (1..3).asFlow()
+
     }
 }
 
@@ -74,3 +85,8 @@ fun firstFlow(): Flow<Int> = flow {
 fun secondFlow(): Flow<Int> = flowOf(1,2,3) //flowOf nos permite devolver cualquier cosa
 
 fun thirdFlow(): Flow<Int> = (1..3).asFlow()
+
+suspend fun performRequest(request: Int): String {
+    delay(1000)
+    return "Response $request"
+}
