@@ -64,10 +64,15 @@ fun main(args: Array<String>) {
             .collect {response-> println(response) }
     }*/
 
-    runBlocking {
+   /* runBlocking {
         (1..3).asFlow()
             .take(2)
             .collect {response-> println(response)}
+    }*/
+
+    runBlocking {
+        val lista: List<Int> = (1..3).asFlow().toList()
+        println(lista)
     }
 }
 
