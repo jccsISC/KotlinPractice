@@ -1,10 +1,7 @@
 package kotlin_avanzado.coroutines
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.*
 
 fun main(args: Array<String>) {
 //    show()
@@ -41,7 +38,8 @@ fun main(args: Array<String>) {
     }*/
 
     runBlocking {
-        secondFlow().collect {value-> println(value)}
+//        secondFlow().collect {value-> println(value)}
+        thirdFlow().collect {value-> println(value)}
     }
 }
 
@@ -74,3 +72,5 @@ fun firstFlow(): Flow<Int> = flow {
 }
 
 fun secondFlow(): Flow<Int> = flowOf(1,2,3) //flowOf nos permite devolver cualquier cosa
+
+fun thirdFlow(): Flow<Int> = (1..3).asFlow()
