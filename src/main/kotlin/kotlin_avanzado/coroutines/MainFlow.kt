@@ -99,7 +99,7 @@ fun main(args: Array<String>) {
             .collect {i-> println("Collect $i")  }
     }*/
 
-    runBlocking {
+    /*runBlocking {
         //Nos devuelve el tiempo en milisegundos de todoo lo que se lleva a cabo dentro
         val time = measureTimeMillis {
             firstFlow()
@@ -108,6 +108,20 @@ fun main(args: Array<String>) {
                 delay(300)
                 println(value)
             }
+        }
+
+        println("$time ms")
+    }*/
+
+    runBlocking {
+        //Nos devuelve el tiempo en milisegundos de todoo lo que se lleva a cabo dentro
+        val time = measureTimeMillis {
+            firstFlow()
+                .conflate()
+                .collect {value ->
+                    delay(300)
+                    println(value)
+                }
         }
 
         println("$time ms")
