@@ -149,15 +149,22 @@ fun main(args: Array<String>) {
         }.collect { println(it) }
     }*/
 
-    runBlocking {
+    /*runBlocking {
         //Aqui se nos está creando un flujo de flujos, para poder procesarlo lo hacemos que sea un solo flujo
         val ejemplo = (1..3).asFlow().map { requestFlow(it) }
+    }*/
+
+    runBlocking {
+        val startTime = System.currentTimeMillis()
+        (1..3).asFlow().onEach { delay(100) }
+            .flatMapConcat { requestFlow(it) }
+            .collect {value-> println("$value at ${System.currentTimeMillis() - startTime} ms from start") }
     }
 }
 
 fun requestFlow(i: Int) = flow {
     emit("$i: First")
-    delay(2000)
+    delay(500)
     emit("$i: Second")
 }
 
